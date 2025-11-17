@@ -30,24 +30,38 @@ async function apply() {
       fs.readFileSync(path.join("./records", file), "utf8")
     );
 
-    const username = data.owner.username;
-    const subname = username;
+    // =============================
+    //   Validate schema
+    // =============================
+    if (!data.subdomain || typeof data.subdomain !== "string") {
+      throw new Error(`Missing "subdomain" field in: ${file}`);
+    }
+
+    const subname = data.subdomain.trim().toLowerCase();
     const recordsObj = data.records;
 
     if (!recordsObj || typeof recordsObj !== "object") {
       throw new Error(`Invalid "records" object in file: ${file}`);
     }
 
+    // =============================
+    //   Process each record type
+    // =============================
     for (const type in recordsObj) {
-      const rawValue = recordsObj[type];
       const recordType = type.toUpperCase();
+      let rawValue = recordsObj[type];
 
       if (!SUPPORTED.includes(recordType)) {
         throw new Error(`Record type "${recordType}" is not supported by deSEC.`);
       }
 
+      if (typeof rawValue !== "string") {
+        throw new Error(`Record value for ${recordType} must be a string.`);
+      }
+
       let value = rawValue.trim();
 
+      // Auto add trailing dot for domain targets
       if (["CNAME", "NS", "PTR", "DNAME"].includes(recordType) && !value.endsWith(".")) {
         value += ".";
       }
@@ -63,7 +77,7 @@ async function apply() {
 
       console.log(`Applying ${recordType} record: ${subname}.${DOMAIN} → ${value}`);
 
-      // Try PUT (create/update)
+      // Try PUT
       let r = await fetch(url, {
         method: "PUT",
         headers: {
@@ -73,9 +87,10 @@ async function apply() {
         body: JSON.stringify(payload)
       });
 
-      // If PUT fails, try POST
+      // If PUT fails → fallback to POST
       if (!r.ok) {
         console.log(`PUT failed (${r.status}). Trying POST...`);
+
         r = await fetch(BASE + "/", {
           method: "POST",
           headers: {
@@ -86,10 +101,11 @@ async function apply() {
         });
       }
 
+      // Final error check
       if (!r.ok) {
         const errMsg = await r.text();
         throw new Error(
-          `Failed to apply record (${recordType}) for ${subname}.${DOMAIN}\nServer Response:\n${errMsg}`
+          `Failed to apply record (${recordType}) for ${subname}.${DOMAIN}\nResponse:\n${errMsg}`
         );
       }
 
