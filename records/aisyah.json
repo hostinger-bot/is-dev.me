@@ -1,0 +1,11 @@
+{
+  "owner": {
+    "username": "Aisyah629",
+    "email": "foo1@gmail.com",
+    "repo": "https://github.com/Aisyah629/test"
+  },
+  "subdomain": "aisyah629",
+  "records": {
+    "CNAME": "aisyah629.github.io"
+  }
+}
