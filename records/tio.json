@@ -1,0 +1,11 @@
+{
+  "owner": {
+    "username": "BOTCAHX",
+    "email": "tioclkp02@gmail.com",
+    "repo": "https://github.com/hostinger-bot/subdomainfree"
+  },
+  "subdomain": "tio",
+  "records": {
+    "CNAME": "hostinger-bot.github.io"
+  }
+}
