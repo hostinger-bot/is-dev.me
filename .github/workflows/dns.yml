@@ -1,0 +1,30 @@
+name: Apply DNS Records
+
+on:
+  pull_request:
+    paths:
+      - "records/*.json"
+  push:
+    paths:
+      - "records/*.json"
+
+jobs:
+  applyDNS:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
+      - name: Apply DNS Records to deSEC
+        run: node scripts/apply-records.js
+        env:
+          DESEC_TOKEN: ${{ secrets.DESEC_TOKEN }}
