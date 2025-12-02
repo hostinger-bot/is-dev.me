@@ -1,0 +1,11 @@
+{
+  "owner": {
+    "username": "RoboWhisperer",
+    "email": "robowhisperer78@gmail.com",
+    "repo": "https://github.com/RoboWhisperer/robowhisperer.github.io"
+  },
+  "subdomain": "robowhisperer",
+  "records": {
+    "CNAME": "robowhisperer.github.com"
+  }
+}
