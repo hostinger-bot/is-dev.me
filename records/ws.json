@@ -2,17 +2,11 @@
   "owner": {
     "username": "hoangxg4",
     "email": "hoangxg4@gmail.com",
-    "repo": "https://github.com"
+    "repo": "https://github.com/hoangxg4"
   },
   "subdomain": "ws",
-  "records": [
-    {
-      "type": "NS",
-      "value": "ns1.onii.pp.ua"
-    },
-    {
-      "type": "NS",
-      "value": "ns2.onii.pp.ua"
-    }
+  "record": [
+    "ns1.onii.pp.ua",
+    "ns2.onii.pp.ua"
   ]
 }
