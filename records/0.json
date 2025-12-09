@@ -1,0 +1,11 @@
+{
+  "owner": {
+    "username": "elkhaff",
+    "email": "your@email.com",
+    "repo": "https://github.com/elkhaff/elkhaff"
+  },
+  "subdomain": "0",
+  "records": {
+    "CNAME": "https://f-s.pages.dev"
+  }
+}
