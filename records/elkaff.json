@@ -1,0 +1,11 @@
+{
+  "owner": {
+    "username": "elkhaff",
+    "email": "elkhaff27@gmail.com",
+    "repo": "https://github.com/elkhaff/elkhaff"
+  },
+  "subdomain": "elkaff",
+  "records": {
+    "CNAME": "3439463450a40b91.vercel-dns-017.com."
+  }
+}
